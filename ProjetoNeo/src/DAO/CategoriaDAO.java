@@ -84,6 +84,76 @@ public class CategoriaDAO extends ExecuteSQL{
        }
     
    }
+         public String ExcluirCategoria(Categoria c){
+   String sql = "DELETE FROM categoria WHERE id = ?";
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ps.setInt(1,c.getCodigo());
+           if(ps.executeUpdate()>0){
+           return "Excluido com sucesso";
+           }else{
+           return "Erro ao excluir";
+           }           
+       } catch (SQLException ex) {
+           return ex.getMessage();
+       }
+   
+   }
+   public List<Categoria> Pesquisar_Nome_Categoria(String nome){
+        String sql = "select idcategoria, nome from categoria where nome Like '"+nome+ "%'";
+         List <Categoria> lista = new ArrayList<>();
+        
+        try{
+          PreparedStatement ps = getCon().prepareStatement(sql);
+          ResultSet rs = ps.executeQuery();
+          
+          if(rs != null){
+              while (rs.next()){
+                  Categoria a = new Categoria();
+                  a.setCodigo(rs.getInt(1));
+                  a.setNome(rs.getString(2));
+                  
+                  
+                  lista.add(a);
+                  
+              }
+              return lista;
+          }else{
+              return null;
+          }
+          
+ 
+        }catch (SQLException e){
+            return null;
+        
+        }
+    
+    }
+    public List<Categoria> Pesquisar_Cod_Categoria(int cod){
+   String sql = "SELECT * FROM categoria WHERE idcategoria ='"+cod+"'";
+   List<Categoria> lista = new ArrayList<>();
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           
+           if(rs!=null){
+               while (rs.next()) {                   
+                Categoria a = new Categoria();
+                a.setCodigo(rs.getInt(1));
+                a.setNome(rs.getString(2));
+               
+                lista.add(a);
+                
+               }   
+               return lista;
+           }else{
+           return null;
+           }
+       }catch (SQLException e) {
+       return null;
+       }
+   }
+    
 }
 
 

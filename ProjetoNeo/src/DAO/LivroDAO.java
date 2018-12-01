@@ -8,7 +8,10 @@ package DAO;
 import Modelo.Livro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -41,5 +44,65 @@ public class LivroDAO extends ExecuteSQL {
             return ex.getMessage();
         }
     }
+     public List<Livro> ListarLivro(){
+   String sql = "SELECT * FROM produto";
+   List<Livro> lista = new ArrayList<>();
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           
+           if(rs!=null){
+               while (rs.next()) {                   
+                Livro f = new Livro();
+                f.setCodigo(rs.getInt(1));
+                f.setNome(rs.getString(2));
+                f.setAutor(rs.getString(3));
+                f.setCategoria(rs.getString(4));
+                f.setSinopse(rs.getString(5));
+                f.setQuantidade(rs.getString(6));
+                f.setDataC(rs.getString(7));
+                f.setDataT(rs.getString(8));
+                f.setCapa(rs.getString(9));
+                lista.add(f);
+               }   
+               return lista;
+           }else{
+           return null;
+           }
+       }catch (SQLException ex) {
+       return null;
+       }
+   }
+   //Consultar
+   public List<Livro> Listar_Nome_Livro(String nome){
+   String sql = "SELECT * FROM produto WHERE nome LIKE '%"+nome+"%'";
+   List<Livro> lista = new ArrayList<>();
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           
+           if(rs!=null){
+               while (rs.next()) {                   
+                Livro f = new Livro();
+                f.setCodigo(rs.getInt(1));
+                f.setNome(rs.getString(2));
+                f.setAutor(rs.getString(3));
+                f.setCategoria(rs.getString(4));
+                f.setSinopse(rs.getString(5));
+                f.setQuantidade(rs.getString(6));
+                f.setDataC(rs.getString(7));
+                f.setDataT(rs.getString(8));
+                
+                f.setCapa(rs.getString(9));
+                lista.add(f);
+               }   
+               return lista;
+           }else{
+           return null;
+           }
+       }catch (SQLException ex) {
+       return null;
+       }
+   }
 }
 
