@@ -105,6 +105,63 @@ public class LivroDAO extends ExecuteSQL {
        return null;
        }
    }
+    public String ExcluirLivro(Livro c){
+   String sql = "DELETE FROM produto WHERE id = ?";
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ps.setInt(1,c.getCodigo());
+           if(ps.executeUpdate()>0){
+           return "Excluido com sucesso";
+           }else{
+           return "Erro ao excluir";
+           }           
+       } catch (SQLException ex) {
+           return ex.getMessage();
+       }
+   
+   }
+     public List<Livro> ListarComboLivro(){
+    String sql = "SELECT Nome FROM produto";
+    List<Livro> lista = new ArrayList<>();
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           if(rs!=null){
+           while(rs.next()){
+           Livro c = new Livro();
+           c.setNome(rs.getString(1));
+           lista.add(c);
+           }
+           
+           }else{
+           return null;
+           }       
+           return lista;
+       } catch (SQLException ex) {
+         return null;
+       }
+   
+   }
+     public List<Livro> ConsultaCodigoLivro(String nome){
+    String sql = "SELECT id FROM produto WHERE nome ='"+nome+"'";
+    List<Livro> lista = new ArrayList<>();
+    try {
+        PreparedStatement ps = getCon().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        if(rs!=null){
+            while (rs.next()) {                
+            Livro c = new Livro();
+            c.setCodigo(rs.getInt(1));
+            lista.add(c);            
+            }
+        }else{
+        return null;
+        }        
+        return lista;
+       } catch (SQLException ex) {
+       return null;
+       }
+        }
 }
 
 

@@ -52,13 +52,13 @@ public class LidosDAO extends ExecuteSQL {
            if(rs!=null){
                while (rs.next()) {                   
                 Lidos f = new Lidos();
-                f.setCodigo(rs.getInt(0));
-                f.setNome(rs.getString(1));
-                f.setAutor(rs.getString(2));
-                f.setCategoria(rs.getString(3));
+                f.setCodigo(rs.getInt(1));
+                f.setNome(rs.getString(2));
+                f.setAutor(rs.getString(3));
+                f.setCategoria(rs.getString(4));
                 
-                f.setDataT(rs.getString(4));
-                f.setCapa(rs.getString(5));
+                f.setDataT(rs.getString(5));
+                f.setCapa(rs.getString(6));
                 lista.add(f);
                }   
                return lista;
@@ -97,5 +97,62 @@ public class LidosDAO extends ExecuteSQL {
        }catch (SQLException ex) {
        return null;
        }
+   }
+      public List<Lidos> ListarComboLidos(){
+    String sql = "SELECT Nome FROM lidos";
+    List<Lidos> lista = new ArrayList<>();
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           if(rs!=null){
+           while(rs.next()){
+           Lidos c = new Lidos();
+           c.setNome(rs.getString(1));
+           lista.add(c);
+           }
+           
+           }else{
+           return null;
+           }       
+           return lista;
+       } catch (SQLException ex) {
+         return null;
+       }
+   
+   }
+        public List<Lidos> ConsultaCodigoLidos(String nome){
+    String sql = "SELECT id FROM lidos WHERE nome ='"+nome+"'";
+    List<Lidos> lista = new ArrayList<>();
+    try {
+        PreparedStatement ps = getCon().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        if(rs!=null){
+            while (rs.next()) {                
+            Lidos c = new Lidos();
+            c.setCodigo(rs.getInt(1));
+            lista.add(c);            
+            }
+        }else{
+        return null;
+        }        
+        return lista;
+       } catch (SQLException ex) {
+       return null;
+       }
+        }
+       public String ExcluirLidos(Lidos c){
+   String sql = "DELETE FROM lidos WHERE id = ?";
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ps.setInt(1,c.getCodigo());
+           if(ps.executeUpdate()>0){
+           return "Excluido com sucesso";
+           }else{
+           return "Erro ao excluir";
+           }           
+       } catch (SQLException ex) {
+           return ex.getMessage();
+       }
+   
    }
 }
