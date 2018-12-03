@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,7 +5,7 @@
  */
 package DAO;
 
-import Modelo.Livro;
+import Modelo.Lidos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,24 +17,21 @@ import java.util.List;
  *
  * @author Raiane
  */
-public class LivroDAO extends ExecuteSQL {
-    public LivroDAO(Connection con){
+public class LidosDAO extends ExecuteSQL {
+    public LidosDAO(Connection con){
     super(con);
     }
     
-    public String InserirLivro(Livro f){
-      String sql = "INSERT INTO produto VALUES (0,?,?,?,?,?,?,?,?)";  
+    public String InserirLivro(Lidos f){
+      String sql = "INSERT INTO lidos VALUES (0,?,?,?,?,?)";  
         
         try {
             PreparedStatement ps = getCon().prepareStatement(sql);
             ps.setString(1,f.getNome());
             ps.setString(2,f.getAutor());
             ps.setString(3,f.getCategoria());
-            ps.setString(4,f.getSinopse());
-            ps.setString(5,f.getQuantidade());
-            ps.setString(6,f.getDataC());
-            ps.setString(7,f.getDataT());
-            ps.setString(8,f.getCapa());
+            ps.setString(4,f.getDataT());
+            ps.setString(5,f.getCapa());
             if(ps.executeUpdate()>0){
             return "iInserido com sucesso";            
             }else{
@@ -44,26 +40,25 @@ public class LivroDAO extends ExecuteSQL {
         } catch (SQLException ex) {
             return ex.getMessage();
         }
+        
     }
-     public List<Livro> ListarLivro(){
-   String sql = "SELECT * FROM produto";
-   List<Livro> lista = new ArrayList<>();
+     public List<Lidos> ListarLivro(){
+   String sql = "SELECT * FROM lidos";
+   List<Lidos> lista = new ArrayList<>();
        try {
            PreparedStatement ps = getCon().prepareStatement(sql);
            ResultSet rs = ps.executeQuery();
            
            if(rs!=null){
                while (rs.next()) {                   
-                Livro f = new Livro();
-                f.setCodigo(rs.getInt(1));
-                f.setNome(rs.getString(2));
-                f.setAutor(rs.getString(3));
-                f.setCategoria(rs.getString(4));
-                f.setSinopse(rs.getString(5));
-                f.setQuantidade(rs.getString(6));
-                f.setDataC(rs.getString(7));
-                f.setDataT(rs.getString(8));
-                f.setCapa(rs.getString(9));
+                Lidos f = new Lidos();
+                f.setCodigo(rs.getInt(0));
+                f.setNome(rs.getString(1));
+                f.setAutor(rs.getString(2));
+                f.setCategoria(rs.getString(3));
+                
+                f.setDataT(rs.getString(4));
+                f.setCapa(rs.getString(5));
                 lista.add(f);
                }   
                return lista;
@@ -74,27 +69,25 @@ public class LivroDAO extends ExecuteSQL {
        return null;
        }
    }
-   //Consultar
-   public List<Livro> Listar_Nome_Livro(String nome){
-   String sql = "SELECT * FROM produto WHERE nome LIKE '%"+nome+"%'";
-   List<Livro> lista = new ArrayList<>();
+     public List<Lidos> Listar_Nome_Livro(String nome){
+   String sql = "SELECT * FROM lidos WHERE nome LIKE '%"+nome+"%'";
+   List<Lidos> lista = new ArrayList<>();
        try {
            PreparedStatement ps = getCon().prepareStatement(sql);
            ResultSet rs = ps.executeQuery();
            
            if(rs!=null){
                while (rs.next()) {                   
-                Livro f = new Livro();
+                Lidos f = new Lidos();
                 f.setCodigo(rs.getInt(1));
                 f.setNome(rs.getString(2));
                 f.setAutor(rs.getString(3));
                 f.setCategoria(rs.getString(4));
-                f.setSinopse(rs.getString(5));
-                f.setQuantidade(rs.getString(6));
-                f.setDataC(rs.getString(7));
-                f.setDataT(rs.getString(8));
                 
-                f.setCapa(rs.getString(9));
+               
+                f.setDataT(rs.getString(5));
+                
+                f.setCapa(rs.getString(6));
                 lista.add(f);
                }   
                return lista;
@@ -106,5 +99,3 @@ public class LivroDAO extends ExecuteSQL {
        }
    }
 }
-
-

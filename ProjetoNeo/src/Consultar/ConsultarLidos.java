@@ -5,11 +5,9 @@
  */
 package Consultar;
 
-import DAO.CategoriaDAO;
 import DAO.Conexao;
-import DAO.LivroDAO;
-import Modelo.Categoria;
-import Modelo.Livro;
+import DAO.LidosDAO;
+import Modelo.Lidos;
 import Principal.Menu;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -20,47 +18,58 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Raiane
  */
-public class ConsultarCategoria extends javax.swing.JFrame {
+public class ConsultarLidos extends javax.swing.JFrame {
 
     /**
-     * Creates new form ConsultarCategoria
+     * Creates new form ConsultarLidos
      */
-    public ConsultarCategoria() {
+    public ConsultarLidos() {
         initComponents();
         AtualizaTable();
     }
-    private void AtualizaTable(){
+      private void AtualizaTable(){
         Connection con = Conexao.AbrirConexao();
-        CategoriaDAO sql = new CategoriaDAO(con);
-        List<Categoria> lista = new ArrayList<>();
-        lista =  sql.ListarComboCategoria();
+        LidosDAO sql = new LidosDAO(con);
+        List<Lidos> lista = new ArrayList<>();
+        lista =  sql.ListarLivro();
         DefaultTableModel tbm = (DefaultTableModel) jTable1.getModel();
         while (tbm.getRowCount() > 0){
             tbm.removeRow(0);
         }
         int i = 0;
-        for(Categoria tab : lista){
+        for(Lidos tab : lista){
             tbm.addRow(new String [i]);
             jTable1.setValueAt(tab.getCodigo(), i, 0);
             jTable1.setValueAt(tab.getNome(), i, 1);
+            jTable1.setValueAt(tab.getAutor(), i, 2);
+            jTable1.setValueAt(tab.getCategoria(), i, 3);
+         
+             
+             jTable1.setValueAt(tab.getDataT(), i, 4);
+            jTable1.setValueAt(tab.getCapa(), i, 5);
             i++;
         }
         Conexao.FecharConexao(con);
     }
   private void AtualizaNome(){
         Connection con = Conexao.AbrirConexao();
-        CategoriaDAO sql = new CategoriaDAO(con);
-        List<Categoria> lista = new ArrayList<>();
-        lista =  sql.Pesquisar_Nome_Categoria(nome.getText());
+        LidosDAO sql = new LidosDAO(con);
+        List<Lidos> lista = new ArrayList<>();
+        lista =  sql.Listar_Nome_Livro(nome.getText());
         DefaultTableModel tbm = (DefaultTableModel) jTable1.getModel();
         while (tbm.getRowCount() > 0){
             tbm.removeRow(0);
         }
         int i = 0;
-        for(Categoria tab : lista){
+        for(Lidos tab : lista){
             tbm.addRow(new String [i]);
             jTable1.setValueAt(tab.getCodigo(), i, 0);
             jTable1.setValueAt(tab.getNome(), i, 1);
+            jTable1.setValueAt(tab.getAutor(), i, 2);
+            jTable1.setValueAt(tab.getCategoria(), i, 3);
+          
+            jTable1.setValueAt(tab.getDataT(), i, 4);
+            jTable1.setValueAt(tab.getCapa(), i, 5);
             i++;
         }
         Conexao.FecharConexao(con);
@@ -75,6 +84,7 @@ public class ConsultarCategoria extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -85,7 +95,8 @@ public class ConsultarCategoria extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+
+        jPanel1.setLayout(null);
 
         jButton3.setBackground(new java.awt.Color(51, 0, 204));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -95,7 +106,7 @@ public class ConsultarCategoria extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3);
+        jPanel1.add(jButton3);
         jButton3.setBounds(510, 340, 150, 23);
 
         jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Raiane\\Documents\\ProjetoLocadora\\src\\Imagens\\pesquisar.jpg")); // NOI18N
@@ -104,7 +115,7 @@ public class ConsultarCategoria extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
+        jPanel1.add(jButton2);
         jButton2.setBounds(360, 10, 30, 30);
 
         jButton1.setBackground(new java.awt.Color(51, 204, 255));
@@ -115,9 +126,9 @@ public class ConsultarCategoria extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
+        jPanel1.add(jButton1);
         jButton1.setBounds(527, 10, 80, 23);
-        getContentPane().add(nome);
+        jPanel1.add(nome);
         nome.setBounds(180, 10, 170, 30);
 
         jTable1.setBackground(new java.awt.Color(153, 153, 153));
@@ -126,11 +137,11 @@ public class ConsultarCategoria extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Categoria"
+                "Id", "Nome", "Autor", "Categoria", "Data Termino", "Capa"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -139,18 +150,29 @@ public class ConsultarCategoria extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1);
+        jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(20, 100, 630, 230);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Consultar por Nome:");
-        getContentPane().add(jLabel2);
+        jPanel1.add(jLabel2);
         jLabel2.setBounds(30, 10, 150, 30);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/y.jpg"))); // NOI18N
         jLabel1.setText("TODOS");
-        getContentPane().add(jLabel1);
+        jPanel1.add(jLabel1);
         jLabel1.setBounds(4, -6, 670, 380);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -184,20 +206,20 @@ public class ConsultarCategoria extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConsultarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarLidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConsultarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarLidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConsultarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarLidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConsultarCategoria.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarLidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConsultarCategoria().setVisible(true);
+                new ConsultarLidos().setVisible(true);
             }
         });
     }
@@ -208,6 +230,7 @@ public class ConsultarCategoria extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField nome;
