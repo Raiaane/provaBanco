@@ -150,9 +150,9 @@ public class ConsultarLivros extends javax.swing.JFrame {
         getContentPane().add(jButton2);
         jButton2.setBounds(360, 10, 30, 30);
 
-        jButton3.setBackground(new java.awt.Color(51, 0, 204));
+        jButton3.setBackground(new java.awt.Color(153, 0, 0));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton3.setText("VOLTAR");
+        jButton3.setText("SAIR");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -178,7 +178,7 @@ public class ConsultarLivros extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-         new Menu().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

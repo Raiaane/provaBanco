@@ -131,7 +131,7 @@ public class CategoriaDAO extends ExecuteSQL{
     
     }
     public List<Categoria> Pesquisar_Cod_Categoria(int cod){
-   String sql = "SELECT * FROM categoria WHERE idcategoria ='"+cod+"'";
+   String sql = "SELECT * FROM categoria WHERE id ='"+cod+"'";
    List<Categoria> lista = new ArrayList<>();
        try {
            PreparedStatement ps = getCon().prepareStatement(sql);
@@ -154,9 +154,71 @@ public class CategoriaDAO extends ExecuteSQL{
        return null;
        }
    }
+    //Capturar
+    public List<Categoria> CapturarCategoria(int cod){
+        String sql = "SELECT * FROM categoria WHERE id='"+cod+"'";
+        List<Categoria> lista = new ArrayList<>();
+
+        try{
+            PreparedStatement ps = getCon().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs!=null){
+                while(rs.next()){
+                    Categoria c = new Categoria();
+                    c.setCodigo(rs.getInt(1));
+                    c.setNome(rs.getString(2));
+                    lista.add(c);
+                }
+                return lista;
+            }else{
+                return null;
+            }    
+        }catch(SQLException ex){
+            return null;
+        }   
+    
+    }
+     //testar
+    public boolean Testar_Categoria(int cod){
+        boolean result =false;
+        try {
+            String sql = "SELECT * FROM categoria WHERE id='"+cod+"'";
+            PreparedStatement ps = getCon().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs!=null){
+               while(rs.next()){
+                    result = true;
+               }
+            }else{
+            
+            }            
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+    
+        return result;
+    }
+    //Alterar
+    public String Alterar_Classificacao(Categoria c){
+    String sql = "UPDATE Categoria SET nome=? WHERE id=?";
+    
+        try {
+            PreparedStatement ps = getCon().prepareStatement(sql);
+            ps.setString(1,c.getNome());
+            ps.setInt(2,c.getCodigo());
+            
+            if (ps.executeUpdate()>0) {
+                return "Atualizado com sucesso";
+            }else{
+                return "Erro ao atualizar";
+                       
+            }
+        } catch (SQLException ex) {
+            return ex.getMessage();
+        }      
     
 }
-
+}
 
 
 

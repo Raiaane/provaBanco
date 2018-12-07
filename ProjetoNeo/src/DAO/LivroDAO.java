@@ -162,6 +162,84 @@ public class LivroDAO extends ExecuteSQL {
        return null;
        }
         }
+       public boolean Testar_Livro(int cod){
+   boolean result = false;
+   
+       try{
+          String sql = "SELECT * FROM produto WHERE id = '"+cod+"'";
+           
+          PreparedStatement ps = getCon().prepareStatement(sql);
+          ResultSet rs = ps.executeQuery();
+          
+          if(rs!= null){
+          while(rs.next()){
+          result = true;
+          }
+          }
+          
+       }catch(SQLException ex) {
+          ex.getMessage();
+       }
+       return result;
+   }
+       public List<Livro> CapturarLivro(int cod){
+    String sql = "SELECT * FROM produto WHERE id = '"+cod+"'";
+    List<Livro> lista = new ArrayList<>();
+        try {
+            PreparedStatement pr = getCon().prepareStatement(sql);
+            ResultSet rs = pr.executeQuery();
+            if(rs!=null){
+                while(rs.next()){
+                    Livro f = new Livro();
+                    f.setCodigo(rs.getInt(1));
+                    f.setNome(rs.getString(2));
+                    f.setAutor(rs.getString(3));
+                    f.setCategoria(rs.getString(4));
+                    f.setSinopse(rs.getString(5));
+                    f.setQuantidade(rs.getString(6));
+                    f.setDataC(rs.getString(7));
+                    f.setDataT(rs.getString(8));
+                     f.setCapa(rs.getString(9));
+                    lista.add(f);
+
+                }
+                return lista;
+            }else{
+                return null;
+            }                    
+        } catch (SQLException ex) {
+            return null;
+        }
+    
+    }  
+       //Alterar
+     public String Alterar_Livro(Livro f){
+   String sql = "UPDATE produto SET nome = ? ,autor = ? ,categoria = ?, sinopse = ? ,qnt = ? ,dataC = ? ,dataT = ? ,Capa = ? WHERE idfilme = ?";
+   
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           
+           ps.setString(1,f.getNome());
+           ps.setString(2,f.getAutor());
+           ps.setString(3,f.getCategoria());
+           ps.setString(4, f.getSinopse());
+           ps.setString(5, f.getQuantidade());
+           ps.setString(6, f.getDataC());
+           ps.setString(7, f.getDataT());
+           ps.setString(8,f.getCapa());
+           ps.setInt(9,f.getCodigo());
+           if (ps.executeUpdate() >0) {
+               return "Filme Atualizado Com Sucesso";
+           }else{
+               return "Erro ao Atualizar";
+           }
+           
+       } catch (SQLException ex) {
+           return ex.getMessage();
+       }
+   
+   
+   }
 }
 
 
