@@ -214,7 +214,7 @@ public class LivroDAO extends ExecuteSQL {
     }  
        //Alterar
      public String Alterar_Livro(Livro f){
-   String sql = "UPDATE produto SET nome = ? ,autor = ? ,categoria = ?, sinopse = ? ,qnt = ? ,dataC = ? ,dataT = ? ,Capa = ? WHERE idfilme = ?";
+   String sql = "UPDATE produto SET nome = ? ,autor = ? ,categoria = ? ,sinopse = ? ,qnt = ? ,dataC = ? ,dataT = ? ,capa = ? WHERE id = ?";
    
        try {
            PreparedStatement ps = getCon().prepareStatement(sql);

@@ -13,7 +13,7 @@ public class Lidos {
     private int codigo;
     private String nome;
     private String autor; 
-    private String categoria;
+    private int categoria;
     private String dataT;
     private String Capa;
                                ;
@@ -42,11 +42,11 @@ public class Lidos {
         this.autor = autor;
     }
 
-    public String getCategoria() {
+    public int getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(int categoria) {
         this.categoria = categoria;
     }
 

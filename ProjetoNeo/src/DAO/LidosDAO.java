@@ -29,7 +29,7 @@ public class LidosDAO extends ExecuteSQL {
             PreparedStatement ps = getCon().prepareStatement(sql);
             ps.setString(1,f.getNome());
             ps.setString(2,f.getAutor());
-            ps.setString(3,f.getCategoria());
+            ps.setInt(3,f.getCategoria());
             ps.setString(4,f.getDataT());
             ps.setString(5,f.getCapa());
             if(ps.executeUpdate()>0){
@@ -55,7 +55,7 @@ public class LidosDAO extends ExecuteSQL {
                 f.setCodigo(rs.getInt(1));
                 f.setNome(rs.getString(2));
                 f.setAutor(rs.getString(3));
-                f.setCategoria(rs.getString(4));
+                f.setCategoria(rs.getInt(4));
                 
                 f.setDataT(rs.getString(5));
                 f.setCapa(rs.getString(6));
@@ -82,7 +82,7 @@ public class LidosDAO extends ExecuteSQL {
                 f.setCodigo(rs.getInt(1));
                 f.setNome(rs.getString(2));
                 f.setAutor(rs.getString(3));
-                f.setCategoria(rs.getString(4));
+                f.setCategoria(rs.getInt(4));
                 
                
                 f.setDataT(rs.getString(5));
@@ -155,4 +155,74 @@ public class LidosDAO extends ExecuteSQL {
        }
    
    }
+       public boolean Testar_Lidos(int cod){
+   boolean result = false;
+   
+       try{
+          String sql = "SELECT * FROM lidos WHERE id = '"+cod+"'";
+           
+          PreparedStatement ps = getCon().prepareStatement(sql);
+          ResultSet rs = ps.executeQuery();
+          
+          if(rs!= null){
+          while(rs.next()){
+          result = true;
+          }
+          }
+          
+       }catch(SQLException ex) {
+          ex.getMessage();
+       }
+       return result;
+   }
+       public List<Lidos> CapturarLidos(int cod){
+    String sql = "SELECT * FROM lidos WHERE id = '"+cod+"'";
+    List<Lidos> lista = new ArrayList<>();
+        try {
+            PreparedStatement pr = getCon().prepareStatement(sql);
+            ResultSet rs = pr.executeQuery();
+            if(rs!=null){
+                while(rs.next()){
+                Lidos f = new Lidos();
+                f.setCodigo(rs.getInt(1));
+                f.setNome(rs.getString(2));
+                f.setAutor(rs.getString(3));
+                f.setCategoria(rs.getInt(4));
+                f.setDataT(rs.getString(5));
+                f.setCapa(rs.getString(6));
+                lista.add(f);
+                }
+                return lista;
+            }else{
+                return null;
+            }                    
+        } catch (SQLException ex) {
+            return null;
+        }
+       }
+       public String Alterar_Lidos(Lidos f){
+   String sql = "UPDATE produto SET nome = ? ,autor = ? ,categoria = ? ,dataT = ? ,capa = ? WHERE id = ?";
+   
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           
+           ps.setString(1,f.getNome());
+           ps.setString(2,f.getAutor());
+           ps.setInt(3,f.getCategoria());
+           ps.setString(4, f.getDataT());
+           ps.setString(5,f.getCapa());
+           ps.setInt(6,f.getCodigo());
+           if (ps.executeUpdate() >0) {
+               return "Filme Atualizado Com Sucesso";
+           }else{
+               return "Erro ao Atualizar";
+           }
+           
+       } catch (SQLException ex) {
+           return ex.getMessage();
+       }
+   
+   
+   }
 }
+

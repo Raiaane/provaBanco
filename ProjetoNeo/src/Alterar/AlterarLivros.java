@@ -33,7 +33,21 @@ public class AlterarLivros extends javax.swing.JFrame {
     public AlterarLivros() {
         initComponents();
         setSize(750,590);
+        AtualizarCamboCategoria();
     }
+    
+   private void AtualizarCamboCategoria(){
+        Connection con = Conexao.AbrirConexao();
+        CategoriaDAO sql = new CategoriaDAO(con);
+        List<Categoria> lista = new ArrayList<>();
+        lista = sql.ListarComboCategoria();
+        jComboBox2.addItem("");
+        
+        for (Categoria b : lista){
+            jComboBox2.addItem(b.getNome());
+        }
+        Conexao.FecharConexao(con);
+    }  
      private void InserirDados(int cod){
         Connection con = Conexao.AbrirConexao();
         LivroDAO sql = new LivroDAO(con);
@@ -50,9 +64,8 @@ public class AlterarLivros extends javax.swing.JFrame {
               dateC.setText(a.getDataC());
               dateT.setText(a.getDataT());
               capa.setText(a.getCapa());
-              
-            
-            
+              coco.setText(""+a.getCodigo());
+                          
         }
      }
 
@@ -121,7 +134,6 @@ public class AlterarLivros extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Quantidade de pags:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -165,6 +177,11 @@ public class AlterarLivros extends javax.swing.JFrame {
         jButton3.setBackground(new java.awt.Color(51, 255, 255));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton3.setText("Limpar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(102, 204, 0));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -178,6 +195,11 @@ public class AlterarLivros extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(204, 51, 0));
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton5.setText("Cancelar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -275,9 +297,9 @@ public class AlterarLivros extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel12)
-                            .addComponent(coco, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(coco, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -329,7 +351,7 @@ public class AlterarLivros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String codigo = coddi.getText();
+       String codigo = coddi.getText();
        Connection con = Conexao.AbrirConexao();
        LivroDAO sql = new LivroDAO(con);
        int cod = Integer.parseInt(codigo);
@@ -355,7 +377,7 @@ public class AlterarLivros extends javax.swing.JFrame {
               
               
        
-              InserirDados(cod);
+             InserirDados(cod);
              coddi.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -416,14 +438,18 @@ public class AlterarLivros extends javax.swing.JFrame {
         String qt = quantid.getText();
         String dc = dateC.getText();
         String dt = dateT.getText();
-        String cap = this.capa.getText();
+        String cap = capa.getText();
+        
+        int cod = (int) Integer.parseInt(coco.getText());
         if(nom.equalsIgnoreCase("")){
-            JOptionPane.showMessageDialog(null,"Todos os campos devem ser preenchidos","Video Locadora",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Todos os campos devem ser preenchidos","Cadastro de Livros",JOptionPane.WARNING_MESSAGE);
         
         }else{
             Connection con = Conexao.AbrirConexao();
             LivroDAO sql = new LivroDAO(con);
             Livro f = new Livro();
+            
+            
             f.setNome(nom);
             f.setAutor(aut);
             f.setCategoria(cat);
@@ -432,6 +458,8 @@ public class AlterarLivros extends javax.swing.JFrame {
             f.setDataC(dc);
             f.setDataT(dt);
             f.setCapa(cap);
+            f.setCodigo(cod);
+            
             sql.Alterar_Livro(f);
 
             Conexao.FecharConexao(con);
@@ -439,10 +467,32 @@ public class AlterarLivros extends javax.swing.JFrame {
             nome.setText("");
             dateC.setText("");
             dateT.setText("");
-
+            autor.setText("");
+            cate.setText("");
+            capa.setText("");
+            sino.setText("");
+            quantid.setText("");
+            coco.setText("");
+            
             JOptionPane.showMessageDialog(null,"Inserido Com Sucesso","Mensagem",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+            nome.setText("");
+            dateC.setText("");
+            dateT.setText("");
+            autor.setText("");
+            cate.setText("");
+            capa.setText("");
+            sino.setText("");
+            quantid.setText("");
+            coco.setText("");
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
