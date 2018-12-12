@@ -75,7 +75,6 @@ public class CadastrarLivro extends javax.swing.JFrame {
         dataC = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         dataT = new javax.swing.JFormattedTextField();
-        jLabel9 = new javax.swing.JLabel();
         capa = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         livro = new javax.swing.JLabel();
@@ -182,11 +181,6 @@ public class CadastrarLivro extends javax.swing.JFrame {
         jPanel1.add(dataT);
         dataT.setBounds(430, 460, 105, 20);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setText("Capa:");
-        jPanel1.add(jLabel9);
-        jLabel9.setBounds(120, 570, 31, 14);
-
         capa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 capaActionPerformed(evt);
@@ -204,13 +198,18 @@ public class CadastrarLivro extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(400, 530, 47, 23);
+        jButton1.setBounds(400, 530, 60, 23);
         jPanel1.add(livro);
         livro.setBounds(550, 90, 304, 296);
 
         jButton2.setBackground(new java.awt.Color(51, 255, 255));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setText("LIMPAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton2);
         jButton2.setBounds(40, 610, 142, 45);
 
@@ -228,6 +227,11 @@ public class CadastrarLivro extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(204, 0, 0));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton4.setText("CANCELAR");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton4);
         jButton4.setBounds(620, 610, 134, 45);
 
@@ -353,6 +357,21 @@ public class CadastrarLivro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_capaActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+            nome.setText("");
+            cat.setText("");
+            autor.setText("");
+            sino.setText("");
+            dataC.setText("");
+            dataT.setText("");
+            quant.setText("");
+            capa.setText("");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -409,7 +428,6 @@ public class CadastrarLivro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel livro;

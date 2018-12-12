@@ -201,7 +201,7 @@ public class LidosDAO extends ExecuteSQL {
         }
        }
        public String Alterar_Lidos(Lidos f){
-   String sql = "UPDATE produto SET nome = ? ,autor = ? ,categoria = ? ,dataT = ? ,capa = ? WHERE id = ?";
+   String sql = "UPDATE lidos SET nome = ? ,autor = ? ,categoria = ? ,datat = ? ,capa = ? WHERE id = ?";
    
        try {
            PreparedStatement ps = getCon().prepareStatement(sql);
@@ -213,7 +213,7 @@ public class LidosDAO extends ExecuteSQL {
            ps.setString(5,f.getCapa());
            ps.setInt(6,f.getCodigo());
            if (ps.executeUpdate() >0) {
-               return "Filme Atualizado Com Sucesso";
+               return "livro Atualizado Com Sucesso";
            }else{
                return "Erro ao Atualizar";
            }

@@ -37,7 +37,7 @@ public class LivroDAO extends ExecuteSQL {
             ps.setString(7,f.getDataT());
             ps.setString(8,f.getCapa());
             if(ps.executeUpdate()>0){
-            return "iInserido com sucesso";            
+            return "Inserido com sucesso";            
             }else{
             return "Erro ao inserir";
             }
@@ -121,7 +121,7 @@ public class LivroDAO extends ExecuteSQL {
    
    }
      public List<Livro> ListarComboLivro(){
-    String sql = "SELECT Nome FROM produto";
+    String sql = "SELECT nome FROM produto";
     List<Livro> lista = new ArrayList<>();
        try {
            PreparedStatement ps = getCon().prepareStatement(sql);

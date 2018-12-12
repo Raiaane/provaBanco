@@ -141,14 +141,15 @@ public class ConsultarLivros extends javax.swing.JFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(527, 10, 80, 23);
 
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Raiane\\Documents\\ProjetoLocadora\\src\\Imagens\\pesquisar.jpg")); // NOI18N
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton2.setText("Ok");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(360, 10, 30, 30);
+        jButton2.setBounds(360, 10, 50, 30);
 
         jButton3.setBackground(new java.awt.Color(153, 0, 0));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N

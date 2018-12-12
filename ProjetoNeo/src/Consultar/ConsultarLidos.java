@@ -109,14 +109,15 @@ public class ConsultarLidos extends javax.swing.JFrame {
         jPanel1.add(jButton3);
         jButton3.setBounds(510, 340, 150, 23);
 
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Raiane\\Documents\\ProjetoLocadora\\src\\Imagens\\pesquisar.jpg")); // NOI18N
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton2.setText("OK");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(360, 10, 30, 30);
+        jButton2.setBounds(360, 10, 50, 30);
 
         jButton1.setBackground(new java.awt.Color(51, 204, 255));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N

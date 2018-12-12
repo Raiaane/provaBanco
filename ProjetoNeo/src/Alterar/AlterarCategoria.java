@@ -24,6 +24,7 @@ public class AlterarCategoria extends javax.swing.JFrame {
      */
     public AlterarCategoria() {
         initComponents();
+        setSize(435,320);
     }
     private void InserirDados(int cod){
     Connection con = Conexao.AbrirConexao();
@@ -196,7 +197,7 @@ public class AlterarCategoria extends javax.swing.JFrame {
             cod = Integer.parseInt(codig);
             if(sql.Testar_Categoria(cod) == false){
                 JOptionPane.showMessageDialog(null,"Classificação não encontrada",
-                        "Video Locadora",JOptionPane.WARNING_MESSAGE);
+                        "Cadastro de Livros",JOptionPane.WARNING_MESSAGE);
                 nome.setText("");
                 Conexao.FecharConexao(con);
             }else{
@@ -220,7 +221,7 @@ public class AlterarCategoria extends javax.swing.JFrame {
             c.setCodigo(cod);
             c.setNome(nom);
             c.setCodigo(code);
-            sql.Alterar_Classificacao(c);
+            sql.Alterar_Categoria(c);
             codigo.setText("");
             nome.setText("");
             Conexao.FecharConexao(con);

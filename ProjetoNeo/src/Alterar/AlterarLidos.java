@@ -56,14 +56,15 @@ public class AlterarLidos extends javax.swing.JFrame {
         lista = sql.CapturarLidos(cod);
         
         for (Lidos a : lista){
+
+              coco.setText(""+a.getCodigo());
               coddi.setText(""+a.getCodigo());
               nome.setText(a.getNome());
               autor.setText(a.getAutor());
               cate.setText(""+a.getCategoria());
               dateT.setText(a.getDataT());
               capa.setText(a.getCapa());
-              coco.setText(""+a.getCodigo());
-                          
+              
         }
      }
 
@@ -391,6 +392,7 @@ public class AlterarLidos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
         String nom = nome.getText();
         String aut = autor.getText();
         int cat = Integer.parseInt(cate.getText());
@@ -430,7 +432,7 @@ public class AlterarLidos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-             coco.setText("");
+              coco.setText("");
               nome.setText("");
               autor.setText("");
               cate.setText("");

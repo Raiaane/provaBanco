@@ -199,7 +199,7 @@ public class CategoriaDAO extends ExecuteSQL{
         return result;
     }
     //Alterar
-    public String Alterar_Classificacao(Categoria c){
+    public String Alterar_Categoria(Categoria c){
     String sql = "UPDATE Categoria SET nome=? WHERE id=?";
     
         try {
@@ -218,6 +218,30 @@ public class CategoriaDAO extends ExecuteSQL{
         }      
     
 }
+    //Listar
+    public List<Categoria> ListarCategoria(){
+   String sql = "SELECT * FROM categoria";
+   List<Categoria> lista = new ArrayList<>();
+       try {
+           PreparedStatement ps = getCon().prepareStatement(sql);
+           ResultSet rs = ps.executeQuery();
+           
+           if(rs!=null){
+               while (rs.next()) {                   
+                Categoria f = new Categoria ();
+                f.setCodigo(rs.getInt(1));
+                f.setNome(rs.getString(2));
+                
+                lista.add(f);
+               }   
+               return lista;
+           }else{
+           return null;
+           }
+       }catch (SQLException ex) {
+       return null;
+       }
+   }
 }
 
 
