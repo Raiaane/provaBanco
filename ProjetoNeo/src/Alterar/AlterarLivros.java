@@ -108,7 +108,7 @@ public class AlterarLivros extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         coco = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));

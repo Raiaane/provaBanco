@@ -101,7 +101,7 @@ public class AlterarLidos extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
@@ -138,8 +138,6 @@ public class AlterarLidos extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Capa:");
-
-        livro.setText("jLabel9");
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -307,7 +305,7 @@ public class AlterarLidos extends javax.swing.JFrame {
                     .addComponent(jButton3)
                     .addComponent(jButton5)
                     .addComponent(jButton4))
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
